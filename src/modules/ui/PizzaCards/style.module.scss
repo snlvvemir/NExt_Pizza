@@ -1,0 +1,58 @@
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .image {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+  
+  .description {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
+  
+  .price {
+    font-size: 18px;
+    color: #ff5f00;
+  }
+  
+  .counter {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button {
+    background: #ff5f00;
+    border: none;
+    color: white;
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .count {
+    margin: 0 8px;
+    font-size: 16px;
+  }
+  

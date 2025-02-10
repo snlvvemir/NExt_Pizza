@@ -1,0 +1,63 @@
+.header{
+    padding: 45px 0;
+    .headerWrapper{
+        display: flex;
+        justify-content: space-between;
+    }
+    .IconContainer{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .IconText1{
+            font-weight: 900;
+            font-size: 24px;
+        }
+        .IconText2{
+            font-weight: 400;
+            font-size: 16px;
+            color: #7B7B7B;
+        }
+    }
+    .search{
+        position: relative;
+        .searchVector{
+            position: absolute;
+            left: 20px;
+            top: 17px;
+        }
+        .input{
+            outline: none;
+            width: 765px;
+            height: 50px;
+            border-radius: 15px;
+            background-color: #F9F9F9;
+            border: none;
+            padding-left: 50px;
+        }
+        input::placeholder{
+            font-weight: 400;
+        }
+    }
+    .buttons{
+        display: flex;
+        gap: 15px;
+    }
+    .SignInbutton{
+        display: flex;
+        align-items: center;
+        padding: 14px 22px;
+        gap: 7px;
+        border: 1px solid #FE5F00;
+        background-color: transparent;
+        border-radius: 15px;
+        .SignInText{
+            color: #FE5F00;
+        }
+    }
+    .CartButton{
+        padding: 18px;
+        border: 1px solid #FE5F00;
+        background-color: transparent;
+        border-radius: 15px;
+    }
+}
