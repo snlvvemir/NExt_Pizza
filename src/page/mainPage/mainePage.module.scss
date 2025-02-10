@@ -1,3 +1,32 @@
-.qwe{
-    color: red;
-}
+.Wrapper {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+  }
+  
+  .Cards {
+    display: flex;
+    flex-wrap: wrap; // Позволяет карточкам переноситься на новую строку
+    gap: 22px;
+    justify-content: center;
+    max-width: 900px; // Ограничение ширины (3 карточки в ряд)
+  
+    .Card {
+      width: calc(33.33% - 50px); // 3 карточки в строке
+      min-width: 250px; // Минимальная ширина карточки
+    }
+  }
+  
+  // Адаптивность
+  @media (max-width: 768px) {
+    .Cards .Card {
+      width: calc(50% - 50px); // 2 карточки в ряд на планшетах
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .Cards .Card {
+      width: 100%; // 1 карточка в ряд на мобильных
+    }
+  }
+  
