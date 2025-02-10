@@ -1,71 +1,56 @@
-import React from 'react'
-import styles from './mainePage.module.scss'
-import TopFilter from '@/components/filterPizza/topFilter/TopFilter'
-import PizzaCard from '@/modules/ui/PizzaCards'
-import PizzaCards from '@/modules/ui/PizzaCards'
-import SidebarFilter from '@/components/filterPizza/sidebarFilter/SidebarFilter'
-import pizzaImg1 from '@/img/pizza 1.svg'
-import pizzaImg2 from '@/img/pizza 2.svg'
-import pizzaImg3 from '@/img/pizza 3.svg'
+"use client";
+
+import React, { useEffect, useState } from "react";
+import styles from "./mainePage.module.scss";
+import TopFilter from "@/components/filterPizza/topFilter/TopFilter";
+import PizzaCard from "@/modules/ui/PizzaCards";
+import SidebarFilter from "@/components/filterPizza/sidebarFilter/SidebarFilter";
+import { fetchPizzas } from "@/api/pizzaApi"; // Импорт запроса к API
+import { IPizza } from "@/store/interface";
 
 const MainePage = () => {
-  const pizza = [
-    {
-      image: pizzaImg1,
-      name: 'Сырный цыпленок',
-      description: 'ОЦыпленок, моцарелла, сыры чеддер и пармезан, сырный соус, томаты, соус альфредо, чеснок',
-      price: 395
-    },
-    {
-      image: pizzaImg2,
-      name: 'Диабло',
-      description: 'Острая чоризо, острый перец халапеньо, соус барбекю, митболы, томаты, сладкий перец, красный лук, моцарелла',
-      price: 449
-    },
-    {
-      image: pizzaImg3,
-      name: 'Чизбургер-пицца',
-      description: 'Мясной соус болоньезе, соус бургер, соленые огурчики, томаты, красный лук, моцарелла',
-      price: 399
-    },
-    {
-      image: pizzaImg1,
-      name: 'Сырный цыпленок',
-      description: 'ОЦыпленок, моцарелла, сыры чеддер и пармезан, сырный соус, томаты, соус альфредо, чеснок',
-      price: 395
-    },
-    {
-      image: pizzaImg2,
-      name: 'Диабло',
-      description: 'Острая чоризо, острый перец халапеньо, соус барбекю, митболы, томаты, сладкий перец, красный лук, моцарелла',
-      price: 449
-    },
-    {
-      image: pizzaImg3,
-      name: 'Чизбургер-пицца',
-      description: 'Мясной соус болоньезе, соус бургер, соленые огурчики, томаты, красный лук, моцарелла',
-      price: 399
-    },
-  ]
+  const [pizzas, setPizzas] = useState<IPizza[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadPizzas = async () => {
+      try {
+        const fetchedPizzas = await fetchPizzas();
+        setPizzas(fetchedPizzas);
+      } catch (err) {
+        setError("Не удалось загрузить пиццы.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPizzas();
+  }, []);
+
+  if (loading) return <div>Загрузка...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div>
-      <TopFilter/>
+      <TopFilter />
       <div className={styles.Wrapper}>
-      <SidebarFilter/>
-      <div className={styles.Cards}>
-        {pizza.map((item, id) => (
-        <PizzaCard
-        image={item.image.src}
-        name={item.name}
-        description={item.description}
-        price={item.price}
-        key={id}
-        />
-      ))}
-      </div>
+        <SidebarFilter />
+        <div className={styles.Cards}>
+          {pizzas.slice(0, 6).map((pizza) => (
+            <PizzaCard
+              
+              key={pizza.id}
+              name={pizza.name}
+              description={pizza.description}
+              price={pizza.price}
+            />
+          ))}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MainePage
+export default MainePage;
