@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.scss'
 import Image from 'next/image'
-import MainIcon from '@/components/img/svg/icons8-пицца-96 1.svg'
+import MainIcon from './svg/icon_pizza.svg'
 const Header = () => {
   return (
     <div className='container'>
@@ -9,7 +9,7 @@ const Header = () => {
         <div>
             <div>
                 <Image src={MainIcon} alt=''/>
-                <div className={styles}>
+                <div>
                     <h1>NEXT PIZZA</h1>
                     <h1>вкусней уже некуда</h1>
                 </div>

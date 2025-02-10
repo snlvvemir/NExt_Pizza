@@ -1,9 +1,10 @@
+import MainePage from '@/page/mainPage/MainePage'
 import React from 'react'
 
 const MainPage = () => {
   return (
     <div>
-      kdckds
+      <MainePage/>
     </div>
   )
 }
