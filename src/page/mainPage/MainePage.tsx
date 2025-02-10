@@ -40,7 +40,7 @@ const MainePage = () => {
         <div className={styles.Cards}>
           {pizzas.slice(0, 6).map((pizza) => (
             <PizzaCard
-              
+              image={pizza.image}
               key={pizza.id}
               name={pizza.name}
               description={pizza.description}
