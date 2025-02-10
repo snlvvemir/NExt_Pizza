@@ -15,24 +15,27 @@ const TopFilter = () => {
   const { category, setCategory } = usePizzaStore();
   const { sort, setSort } = usePizzaStore();
   return (
-    <div className={styles.container}>
-      <div className={styles.filter}>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            className={category === cat ? styles.active : ""}
-            onClick={() => setCategory(cat)}
-          >
-            {cat}
+    <>
+    <h2 className={styles.name}>{category} пиццы</h2>
+      <div className={styles.container}>
+        <div className={styles.filter}>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              className={category === cat ? styles.active : ""}
+              onClick={() => setCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+        <div className={styles.sort}>
+          <button className={styles.active} onClick={() => setSort("рейтинг")}>
+            рейтингу
           </button>
-        ))}
+        </div>
       </div>
-      <div className={styles.sort}>
-        <button className={styles.active} onClick={() => setSort("рейтинг")}>
-          рейтингу
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

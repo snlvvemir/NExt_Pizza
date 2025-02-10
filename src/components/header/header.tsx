@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 
-// Импорт изображений
 import MainIcon from "./svg/icon_pizza.svg";
 import SearchVector from "./svg/search_vector.svg";
 import SignInIcon from "./svg/sign_in_icon.svg";
