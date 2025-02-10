@@ -1,32 +1,73 @@
 .Wrapper {
-    display: flex;
-    gap: 50px;
-    align-items: flex-start;
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.Cards {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 22px;
+  justify-content: center;
+  max-width: 900px;
+}
+
+.Card {
+  width: calc(33.33% - 50px);
+  min-width: 250px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .Card {
+    width: calc(50% - 50px); 
   }
-  
-  .Cards {
-    display: flex;
-    flex-wrap: wrap; // Позволяет карточкам переноситься на новую строку
-    gap: 22px;
-    justify-content: center;
-    max-width: 900px; // Ограничение ширины (3 карточки в ряд)
-  
-    .Card {
-      width: calc(33.33% - 50px); // 3 карточки в строке
-      min-width: 250px; // Минимальная ширина карточки
-    }
+}
+
+@media (max-width: 480px) {
+  .Card {
+    width: 100%;
   }
-  
-  // Адаптивность
-  @media (max-width: 768px) {
-    .Cards .Card {
-      width: calc(50% - 50px); // 2 карточки в ряд на планшетах
-    }
+}
+
+/* Пагинация */
+.Pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px;
+}
+
+.pageButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #ff6600;
+  background: white;
+  color: #ff6600;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background: #ff6600;
+    color: white;
   }
-  
-  @media (max-width: 480px) {
-    .Cards .Card {
-      width: 100%; // 1 карточка в ряд на мобильных
-    }
-  }
-  
+}
+
+.active {
+  background: #ff6600;
+  color: white;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 16px;
+  font-weight: bold;
+  color: #777;
+}
