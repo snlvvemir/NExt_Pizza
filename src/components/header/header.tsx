@@ -1,44 +1,44 @@
-import React from 'react';
-import styles from './styles.module.scss';
-import Image from 'next/image';
-import MainIcon from '@/components/img/svg/icons8-пицца-96 1.svg';
-import SearchVector from '@/components/img/svg/search_vector.svg'
-import SignInIcon from '@/components/img/svg/sign_in_icon.svg'
-import ShoppingCartIcon from '@/components/img/svg/shopping_cart.svg'
+import React from "react";
+import Image from "next/image";
+import styles from "./styles.module.scss";
 
-const Header = () => {
+// Импорт изображений
+import MainIcon from "./svg/icon_pizza.svg";
+import SearchVector from "./svg/search_vector.svg";
+import SignInIcon from "./svg/sign_in_icon.svg";
+import ShoppingCartIcon from "./svg/shopping_cart.svg";
+
+const Header: React.FC = () => {
   return (
-    <>
-      <header className={styles.header}>
-        <div className={styles.headerWrapper}>
-            <div className={styles.IconContainer}>
-                <Image className={styles.icon} src={MainIcon} alt=''/>
-                <div>
-                    <h1 className={styles.IconText1}>NEXT PIZZA</h1>
-                    <h1 className={styles.IconText2}>вкусней уже некуда</h1>
-                </div>
-            </div>
-            <div className={styles.search}>
-                <Image className={styles.searchVector} src={SearchVector} alt=''/>
-                <input placeholder='Поиск пиццы...' className={styles.input} type="text" />
-            </div>
-            <div className={styles.buttons}>
-                <div>
-                    <button className={styles.SignInbutton}>
-                        <Image src={SignInIcon} alt=''/>
-                        <h3 className={styles.SignInText}>Войти</h3>
-                    </button>
-                </div>
-                <div>
-                    <button className={styles.CartButton}>
-                        <Image src={ShoppingCartIcon} alt='' />
-                    </button>
-                </div>
-            </div>
+    <header className={styles.header}>
+      <div className={styles.headerWrapper}>
+        <div className={styles.iconContainer}>
+          <Image className={styles.icon} src={MainIcon} alt="Главная иконка" />
+          <div>
+            <h1 className={styles.iconText1}>NEXT PIZZA</h1>
+            <h2 className={styles.iconText2}>вкусней уже некуда</h2>
+          </div>
         </div>
-      </header>
-    </>
-  )
-}
+        <div className={styles.search}>
+          <Image className={styles.searchVector} src={SearchVector} alt="Иконка поиска" />
+          <input
+            placeholder="Поиск пиццы..."
+            className={styles.input}
+            type="text"
+          />
+        </div>
+        <div className={styles.buttons}>
+          <button className={styles.signInButton}>
+            <Image src={SignInIcon} alt="Иконка входа" />
+            <h3 className={styles.signInText}>Войти</h3>
+          </button>
+          <button className={styles.cartButton}>
+            <Image src={ShoppingCartIcon} alt="Иконка корзины" />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
 
-export default Header
+export default Header;

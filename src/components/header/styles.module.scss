@@ -3,19 +3,20 @@
     .headerWrapper{
         display: flex;
         justify-content: space-between;
-    }
-    .IconContainer{
-        display: flex;
         align-items: center;
-        gap: 15px;
-        .IconText1{
-            font-weight: 900;
-            font-size: 24px;
-        }
-        .IconText2{
-            font-weight: 400;
-            font-size: 16px;
-            color: #7B7B7B;
+        .iconContainer{
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            .iconText1{
+                font-weight: 900;
+                font-size: 24px;
+            }
+            .iconText2{
+                font-weight: 400;
+                font-size: 16px;
+                color: #7B7B7B;
+            }
         }
     }
     .search{
@@ -42,7 +43,7 @@
         display: flex;
         gap: 15px;
     }
-    .SignInbutton{
+    .signInButton{
         display: flex;
         align-items: center;
         padding: 14px 22px;
@@ -50,11 +51,11 @@
         border: 1px solid #FE5F00;
         background-color: transparent;
         border-radius: 15px;
-        .SignInText{
+        .signInText{
             color: #FE5F00;
         }
     }
-    .CartButton{
+    .cartButton{
         padding: 18px;
         border: 1px solid #FE5F00;
         background-color: transparent;
