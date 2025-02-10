@@ -1,44 +1,34 @@
-import { FC } from "react";
-import styles from "@/styles/style.module.scss";
+import React from 'react'
+import styles from './style.module.scss'
+import pizzaImg1 from '@/img/pizza 1.svg'
+import pizzaImg2 from '@/img/pizza 2.svg'
+import pizzaImg3 from '@/img/pizza 3.svg'
+import Image from 'next/image'
 
-interface PizzaCardProps {
-  image: string;
-  name: string;
-  description: string;
-  price: number;
-  count: number;
-  onIncrement: () => void;
-  onDecrement: () => void;
+interface CardsProps {
+  image: string,
+  name: string,
+  description: string,
+  price: number
+}
+const PizzaCard: React.FC<CardsProps> = ({ image, name, description, price }) => {
+  return (
+    <div className={styles.Card}>
+      <div className={styles.Image}>
+        <Image src={image} alt=''/>
+      </div>
+      <div className={styles.textCard}>
+      <h1 className={styles.name}>{name}</h1>
+      <p className={styles.description}>{description}</p>
+      <div className={styles.bottomWrapper}>
+        <h3 className={styles.price}>От {price} ₽</h3>
+        <button className={styles.addBtn}>+ Добавить</button>
+      </div>
+      </div>
+      
+    </div>
+  )
 }
 
-const PizzaCard: FC<PizzaCardProps> = ({
-  image,
-  name,
-  description,
-  price,
-  count,
-  onIncrement,
-  onDecrement,
-}) => {
-  return (
-    <div className={styles.card}>
-      <img src={image} alt={name} className={styles.image} />
-      <h3 className={styles.title}>{name}</h3>
-      <p className={styles.description}>{description}</p>
-      <div className={styles.footer}>
-        <span className={styles.price}>от {price} ₽</span>
-        <div className={styles.counter}>
-          <button onClick={onDecrement} className={styles.button}>
-            -
-          </button>
-          <span className={styles.count}>{count}</span>
-          <button onClick={onIncrement} className={styles.button}>
-            +
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+export default PizzaCard
 
-export default PizzaCard;
