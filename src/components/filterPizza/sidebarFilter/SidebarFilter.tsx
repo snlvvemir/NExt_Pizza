@@ -1,11 +1,25 @@
-"use client"
-import { usePizzaStore } from '@/store/usePizzaStore';
-import styles from './styles.module.scss';
+"use client";
+import { usePizzaStore } from "@/store/usePizzaStore";
+import styles from "./styles.module.scss";
 
-const ingredientsList = ['Сырный соус', 'Моцарелла', 'Чеснок', 'Солёные огурчики', 'Красный лук', 'Томаты'];
+const ingredientsList = [
+  "Сырный соус",
+  "Моцарелла",
+  "Чеснок",
+  "Солёные огурчики",
+  "Красный лук",
+  "Томаты",
+];
 
 export default function SidebarFilter() {
-  const { priceRange, setPriceRange, ingredients, toggleIngredient, doughType, setDoughType } = usePizzaStore();
+  const {
+    priceRange,
+    setPriceRange,
+    selectedIngredients = [],
+    toggleIngredient,
+    doughType,
+    setDoughType,
+  } = usePizzaStore();
 
   return (
     <aside className={styles.sidebar}>
@@ -44,7 +58,7 @@ export default function SidebarFilter() {
           <label key={ing}>
             <input
               type="checkbox"
-              checked={ingredients.includes(ing)}
+              checked={selectedIngredients.includes(ing)} 
               onChange={() => toggleIngredient(ing)}
             />
             {ing}
@@ -59,8 +73,8 @@ export default function SidebarFilter() {
             type="radio"
             name="dough"
             value="Традиционное"
-            checked={doughType === 'Традиционное'}
-            onChange={() => setDoughType('Традиционное')}
+            checked={doughType === "Традиционное"}
+            onChange={() => setDoughType("Традиционное")}
           />
           Традиционное
         </label>
@@ -69,8 +83,8 @@ export default function SidebarFilter() {
             type="radio"
             name="dough"
             value="Тонкое"
-            checked={doughType === 'Тонкое'}
-            onChange={() => setDoughType('Тонкое')}
+            checked={doughType === "Тонкое"}
+            onChange={() => setDoughType("Тонкое")}
           />
           Тонкое
         </label>
