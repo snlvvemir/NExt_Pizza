@@ -1,45 +1,36 @@
-// store/pizzaStore.ts
-import { create } from 'zustand';
+import { create } from "zustand";
+import { fetchPizzas } from "../api/pizzaApi";
+import { IPizzaStore } from "./interface";
 
-interface Pizza {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
-
-interface PizzaStore {
-  pizzas: Pizza[];
-  setPizzas: (pizzas: Pizza[]) => void;
-  category: string;
-  setCategory: (category: string) => void;
-  sort: string;
-  setSort: (sort: string) => void;
-  priceRange: [number, number];
-  setPriceRange: (range: [number, number]) => void;
-  ingredients: string[];
-  toggleIngredient: (ingredient: string) => void;
-  doughType: string;
-  setDoughType: (type: string) => void;
-}
-
-export const usePizzaStore = create<PizzaStore>((set) => ({
+export const usePizzaStore = create<IPizzaStore>((set) => ({
   pizzas: [],
-  setPizzas: (pizzas) => set({ pizzas }),
-  category: 'Все',
+  fetchPizzas: async () => {
+    try {
+      const pizzas = await fetchPizzas();
+      console.log("Обновленные пиццы в хранилище:", pizzas); // Логируем пиццы, полученные с API
+      set({ pizzas });
+    } catch (error) {
+      console.error("Ошибка загрузки пицц в хранилище:", error);
+    }
+  },
+
+  category: "Все",
   setCategory: (category) => set({ category }),
-  sort: 'рейтинг',
+
+  sort: "рейтинг",
   setSort: (sort) => set({ sort }),
+
   priceRange: [0, 1950],
   setPriceRange: (range) => set({ priceRange: range }),
-  ingredients: [],
+
+  selectedIngredients: [],
   toggleIngredient: (ingredient) =>
     set((state) => ({
-      ingredients: state.ingredients.includes(ingredient)
-        ? state.ingredients.filter((i) => i !== ingredient)
-        : [...state.ingredients, ingredient],
+      selectedIngredients: state.selectedIngredients.includes(ingredient)
+        ? state.selectedIngredients.filter((i) => i !== ingredient)
+        : [...state.selectedIngredients, ingredient],
     })),
-  doughType: 'Традиционное',
+
+  doughType: "Традиционное",
   setDoughType: (type) => set({ doughType: type }),
 }));
