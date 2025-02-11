@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import axios from "axios";
 import { IPizza } from "@/store/interface";
+=======
+// демо api что бы было переделаю 
+import axios from 'axios';
+import { IPizza } from '@/store/interface';
+>>>>>>> f454d86058c8d69668927f3eff49a947e568927f
 
 const API_URL = "https://67a9bad96e9548e44fc49a95.mockapi.io/pizza";
 
