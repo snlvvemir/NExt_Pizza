@@ -7,6 +7,16 @@ export interface IPizza {
   ingredients: string[];
   doughOptions: string[];
   customizable: boolean;
+  rating: number;
+  category: string;
+}
+
+export interface IPizzaData{
+  pizzas: IPizza[]
+}
+
+export interface IPizzaDataSingle{
+  pizza: IPizza
 }
 
 export interface IPizzaStore {
@@ -22,4 +32,5 @@ export interface IPizzaStore {
   toggleIngredient: (ingredient: string) => void;
   doughType: string;
   setDoughType: (type: string) => void;
+  filteredPizzas: any;
 }
