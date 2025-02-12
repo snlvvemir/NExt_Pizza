@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -7,7 +7,6 @@ import MainIcon from "./svg/icon_pizza.svg";
 import SearchVector from "./svg/search_vector.svg";
 import SignInIcon from "./svg/sign_in_icon.svg";
 import ShoppingCartIcon from "./svg/shopping_cart.svg";
-import CloseIcon from "./svg/close_icon.svg";
 import { fetchPizzas } from "@/api/pizzaApi";
 import { IPizza } from "@/store/interface";
 

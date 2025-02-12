@@ -1,0 +1,42 @@
+/* style.module.scss */
+.cartModal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cartOpen {
+    transform: translateX(0);
+  }
+  
+  .headerTitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .cartItemsList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cartItemsList li {
+    margin-bottom: 10px;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  

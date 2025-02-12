@@ -6,8 +6,10 @@ export interface IPizza {
   image: string;
   ingredients: string[];
   doughOptions: string[];
+  dough?: string; // Добавляем выбранный тип теста (опционально)
   customizable: boolean;
 }
+
 
 export interface IPizzaStore {
   pizzas: IPizza[];
