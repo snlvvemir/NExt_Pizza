@@ -4,33 +4,6 @@
   align-items: flex-start;
 }
 
-.Cards {
-  display: flex;
-  flex-wrap: wrap; 
-  gap: 22px;
-  justify-content: center;
-  max-width: 900px;
-}
-
-.Card {
-  width: calc(33.33% - 50px);
-  min-width: 250px;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .Card {
-    width: calc(50% - 50px); 
-  }
-}
-
-@media (max-width: 480px) {
-  .Card {
-    width: 100%;
-  }
-}
-
-/* Пагинация */
 .Pagination {
   display: flex;
   align-items: center;
@@ -38,36 +11,3 @@
   margin: 20px;
 }
 
-.pageButton {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid #ff6600;
-  background: white;
-  color: #ff6600;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-
-  &:hover {
-    background: #ff6600;
-    color: white;
-  }
-}
-
-.active {
-  background: #ff6600;
-  color: white;
-}
-
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.pageInfo {
-  font-size: 16px;
-  font-weight: bold;
-  color: #777;
-}

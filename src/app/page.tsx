@@ -1,10 +1,8 @@
-import MainPage from "./main/page";
+import MainPage from "@/page/mainPage/MainPage";
+import { PizzaService } from "@/services/pizzaService";
 
+export default async function Home() {
+  const pizzas = await PizzaService.fetchPizzas(); 
 
-export default function Home() {
-  return (
-    <div>
-      <MainPage />
-    </div>
-  );
+  return <MainPage pizzas={pizzas} />;
 }

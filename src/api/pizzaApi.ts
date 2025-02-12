@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { IPizza } from "@/store/interface";
+import { IPizza } from "@/store/pizza.interface";
 
 const API_URL = "https://67a9bad96e9548e44fc49a95.mockapi.io/pizza";
 

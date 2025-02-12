@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./mainePage.module.scss";
 import TopFilter from "@/components/filterPizza/topFilter/TopFilter";
-import PizzaCard from "@/modules/ui/PizzaCards";
 import SidebarFilter from "@/components/filterPizza/sidebarFilter/SidebarFilter";
-import Pagination from "./pagination";
+import Pagination from "@/components/pagination/pagination";
+import PizzaList from "@/components/pizzaList/PizzaList";
 import Modal from "@/components/ModalPizza";
 import { fetchPizzas } from "@/api/pizzaApi";
-import { IPizza } from "@/store/interface";
+import { IPizza } from "@/store/pizza.interface";
 import Image from "next/image";
+import PizzaCard from "@/modules/ui/PizzaCards/PizzaCard";
 
 const LIMIT = 6;
 
@@ -19,16 +20,19 @@ interface CartItem extends IPizza {
   toppings: string[];
   quantity: number;
   totalPrice: number;
-  image: string;
 }
 
-const MainePage = () => {
+const MainPage = () => {
   const [pizzas, setPizzas] = useState<IPizza[]>([]);
+  const [filteredPizzas, setFilteredPizzas] = useState<IPizza[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedPizza, setSelectedPizza] = useState<IPizza | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [category, setCategory] = useState<string>("Все");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [sort, setSort] = useState<string>("рейтинг");
 
   useEffect(() => {
     const loadPizzas = async () => {
@@ -43,6 +47,17 @@ const MainePage = () => {
     loadPizzas();
   }, [page]);
 
+  useEffect(() => {
+    const filtered = pizzas.filter((pizza) => {
+      const categoryMatch = category === "Все" || pizza.category === category;
+      const priceMatch = pizza.price >= priceRange[0] && pizza.price <= priceRange[1];
+      return categoryMatch && priceMatch;
+    });
+
+    const sortedPizzas = filtered.sort((a, b) => (sort === "рейтинг" ? b.rating - a.rating : 0));
+    setFilteredPizzas(sortedPizzas);
+  }, [pizzas, category, priceRange, sort]);
+
   const handleAddToCart = (pizza: IPizza) => {
     setSelectedPizza(pizza);
     setSelectedPrice(pizza.price);
@@ -52,8 +67,7 @@ const MainePage = () => {
     if (selectedPizza) {
       setCart((prevCart) => {
         const existingItemIndex = prevCart.findIndex(
-          (item) =>
-            item.id === selectedPizza.id && item.size === size && item.dough === dough
+          (item) => item.id === selectedPizza.id && item.size === size && item.dough === dough
         );
 
         if (existingItemIndex !== -1) {
@@ -62,10 +76,7 @@ const MainePage = () => {
           updatedCart[existingItemIndex].totalPrice += totalPrice;
           return updatedCart;
         } else {
-          return [
-            ...prevCart,
-            { ...selectedPizza, size, dough, toppings, quantity: 1, totalPrice, image: selectedPizza.image },
-          ];
+          return [...prevCart, { ...selectedPizza, size, dough, toppings, quantity: 1, totalPrice }];
         }
       });
       setSelectedPizza(null);
@@ -73,31 +84,23 @@ const MainePage = () => {
   };
 
   const updateQuantity = (index: number, change: number) => {
-    setCart((prevCart) => {
-      const updatedCart = prevCart.map((item, idx) =>
-        idx === index ? { ...item, quantity: item.quantity + change, totalPrice: item.totalPrice + change * (item.totalPrice / item.quantity) } : item
-      ).filter(item => item.quantity > 0);
-      return updatedCart;
-    });
+    setCart((prevCart) =>
+      prevCart
+        .map((item, idx) =>
+          idx === index
+            ? { ...item, quantity: item.quantity + change, totalPrice: item.totalPrice + change * (item.totalPrice / item.quantity) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
   };
 
   return (
     <div>
-      <TopFilter />
+      <TopFilter/>
       <div className={styles.Wrapper}>
         <SidebarFilter />
-        <div className={styles.Cards}>
-          {pizzas.map((pizza) => (
-            <PizzaCard
-              key={pizza.id}
-              image={pizza.image}
-              name={pizza.name}
-              description={pizza.description}
-              price={pizza.price}
-              onAddToCart={() => handleAddToCart(pizza)}
-            />
-          ))}
-        </div>
+        <PizzaList pizzas={filteredPizzas.slice((page - 1) * LIMIT, page * LIMIT)} onAddToCart={handleAddToCart} />
       </div>
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
 
@@ -106,14 +109,10 @@ const MainePage = () => {
         title={selectedPizza?.name}
         price={selectedPrice}
         image={selectedPizza?.image}
-        onConfirm={(size, dough, toppings) => {
-          const totalPrice = selectedPrice;
-          confirmAddToCart(size, dough, toppings, totalPrice);
-        }}
+        onConfirm={(size, dough, toppings) => confirmAddToCart(size, dough, toppings, selectedPrice)}
         onClose={() => setSelectedPizza(null)}
       />
 
-      {/* Корзина */}
       <div className={styles.cart}>
         <h2>Корзина</h2>
         {cart.length === 0 ? (
@@ -124,9 +123,7 @@ const MainePage = () => {
               <li key={index} className={styles.cartItem}>
                 <Image src={pizza.image} width={50} height={50} alt={pizza.name} className={styles.cartImage} />
                 {`${pizza.name} — ${pizza.size}, ${pizza.dough}, ${pizza.totalPrice}₽ x ${pizza.quantity}`}
-                {pizza.toppings.length > 0 && (
-                  <span> (Добавки: {pizza.toppings.join(", ")})</span>
-                )}
+                {pizza.toppings.length > 0 && <span> (Добавки: {pizza.toppings.join(", ")})</span>}
                 <button onClick={() => updateQuantity(index, 1)}>+</button>
                 <button onClick={() => updateQuantity(index, -1)}>-</button>
               </li>
@@ -138,4 +135,4 @@ const MainePage = () => {
   );
 };
 
-export default MainePage;
+export default MainPage;

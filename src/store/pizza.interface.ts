@@ -8,6 +8,16 @@ export interface IPizza {
   doughOptions: string[];
   dough?: string; // Добавляем выбранный тип теста (опционально)
   customizable: boolean;
+  rating: number;
+  category: string;
+}
+
+export interface IPizzaData{
+  pizzas: IPizza[]
+}
+
+export interface IPizzaDataSingle{
+  pizza: IPizza
 }
 
 
@@ -24,4 +34,5 @@ export interface IPizzaStore {
   toggleIngredient: (ingredient: string) => void;
   doughType: string;
   setDoughType: (type: string) => void;
+  filteredPizzas: any;
 }
